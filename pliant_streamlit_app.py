@@ -43,11 +43,10 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    /* Main background */
+    /* ── LIGHT MODE ───────────────────────────── */
     .main { background-color: #F2F7FD; }
     .block-container { padding-top: 1rem; padding-bottom: 1rem; }
 
-    /* KPI Cards */
     .kpi-card {
         background: white;
         border-radius: 10px;
@@ -59,7 +58,7 @@ st.markdown("""
     .kpi-label {
         font-size: 12px;
         font-weight: 700;
-        color: #666;
+        color: #666666;
         text-transform: uppercase;
         letter-spacing: 0.06em;
         margin-bottom: 6px;
@@ -69,22 +68,20 @@ st.markdown("""
     .kpi-value-green  { font-size: 32px; font-weight: 900; color: #70AD47; }
     .kpi-value-purple { font-size: 32px; font-weight: 900; color: #7030A0; }
 
-    /* Section headers */
     .section-header {
         font-size: 14px;
         font-weight: 700;
         color: #1A1A2E;
-        padding: 34px 0 2px 0;
+        padding: 15px 0 2px 0;
         border-bottom: 2px solid #4472C4;
         margin-bottom: 8px;
     }
 
-    /* AI Summary cards */
     .exec-summary {
         background: #1F4E79;
         border-radius: 10px;
         padding: 20px 24px;
-        color: white;
+        color: white !important;
         font-size: 14px;
         line-height: 1.8;
         margin-bottom: 16px;
@@ -97,7 +94,7 @@ st.markdown("""
         box-shadow: 0 1px 4px rgba(0,0,0,0.08);
         font-size: 13px;
         line-height: 1.7;
-        color: #333;
+        color: #1A1A2E;
     }
     .ai-card-title {
         font-size: 12px;
@@ -106,13 +103,43 @@ st.markdown("""
         letter-spacing: 0.05em;
         margin-bottom: 6px;
     }
-
-    /* Anomaly badge */
     .badge-anomaly { color: #B71C1C; font-weight: 700; }
     .badge-normal  { color: #2E7D32; font-weight: 700; }
 
-    /* Sidebar */
-    .css-1d391kg { background-color: #1F4E79; }
+    /* ── DARK MODE ────────────────────────────── */
+    @media (prefers-color-scheme: dark) {
+        .main { background-color: #0E1117 !important; }
+
+        .kpi-card {
+            background: #1E2130 !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .kpi-label {
+            color: #AAAAAA !important;
+        }
+
+        .section-header {
+            color: #FFFFFF !important;
+            border-bottom: 2px solid #4472C4;
+        }
+
+        .ai-card {
+            background: #1E2130 !important;
+            color: #E0E0E0 !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+    }
+
+    /* Streamlit dark mode class override */
+    [data-theme="dark"] .main         { background-color: #0E1117 !important; }
+    [data-theme="dark"] .kpi-card     { background: #1E2130 !important;
+                                        box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    [data-theme="dark"] .kpi-label    { color: #AAAAAA !important; }
+    [data-theme="dark"] .section-header { color: #FFFFFF !important; }
+    [data-theme="dark"] .ai-card      { background: #1E2130 !important;
+                                        color: #E0E0E0 !important; }
+    [data-theme="dark"] .ai-card-title { color: inherit; }
+    [data-theme="dark"] .exec-summary { color: white !important; }
 </style>
 """, unsafe_allow_html=True)
 
