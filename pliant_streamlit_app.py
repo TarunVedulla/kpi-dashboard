@@ -46,7 +46,7 @@ st.markdown("""
     /* ── LIGHT MODE ───────────────────────────── */
     .main { background-color: #F2F7FD; }
     .block-container { padding-top: 1rem; padding-bottom: 1rem; }
- 
+
     .kpi-card {
         background: white;
         border-radius: 10px;
@@ -63,11 +63,11 @@ st.markdown("""
         letter-spacing: 0.06em;
         margin-bottom: 6px;
     }
-   .kpi-value-blue   { font-size: 26px; font-weight: 900; color: #4472C4; white-space: nowrap; }
-   .kpi-value-red    { font-size: 26px; font-weight: 900; color: #C0504D; white-space: nowrap; }
-   .kpi-value-green  { font-size: 26px; font-weight: 900; color: #70AD47; white-space: nowrap; }
-   .kpi-value-purple { font-size: 26px; font-weight: 900; color: #7030A0; white-space: nowrap; }
- 
+    .kpi-value-blue   { font-size: 32px; font-weight: 900; color: #4472C4; }
+    .kpi-value-red    { font-size: 32px; font-weight: 900; color: #C0504D; }
+    .kpi-value-green  { font-size: 32px; font-weight: 900; color: #70AD47; }
+    .kpi-value-purple { font-size: 32px; font-weight: 900; color: #7030A0; }
+
     .section-header {
         font-size: 14px;
         font-weight: 700;
@@ -76,7 +76,7 @@ st.markdown("""
         border-bottom: 2px solid #4472C4;
         margin-bottom: 8px;
     }
- 
+
     .exec-summary {
         background: #1F4E79;
         border-radius: 10px;
@@ -105,11 +105,11 @@ st.markdown("""
     }
     .badge-anomaly { color: #B71C1C; font-weight: 700; }
     .badge-normal  { color: #2E7D32; font-weight: 700; }
- 
+
     /* ── DARK MODE ────────────────────────────── */
     @media (prefers-color-scheme: dark) {
         .main { background-color: #0E1117 !important; }
- 
+
         .kpi-card {
             background: #1E2130 !important;
             box-shadow: 0 2px 8px rgba(0,0,0,0.4);
@@ -117,29 +117,29 @@ st.markdown("""
         .kpi-label {
             color: #AAAAAA !important;
         }
- 
+
         .section-header {
             color: #FFFFFF !important;
             border-bottom: 2px solid #4472C4;
         }
- 
+
         .ai-card {
             background: #1E2130 !important;
             color: #E0E0E0 !important;
             box-shadow: 0 1px 4px rgba(0,0,0,0.3);
         }
     }
- 
+
     /* Streamlit dark mode class override */
-    [data-theme="dark"] .section-header {
-        color: #FFFFFF !important;
-        border-bottom: 2px solid #4472C4;
-    }
-    [data-theme="dark"] h1, 
-    [data-theme="dark"] h2, 
-    [data-theme="dark"] h3 {
-        color: #FFFFFF !important;
-    }
+    [data-theme="dark"] .main         { background-color: #0E1117 !important; }
+    [data-theme="dark"] .kpi-card     { background: #1E2130 !important;
+                                        box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    [data-theme="dark"] .kpi-label    { color: #AAAAAA !important; }
+    [data-theme="dark"] .section-header { color: #FFFFFF !important; }
+    [data-theme="dark"] .ai-card      { background: #1E2130 !important;
+                                        color: #E0E0E0 !important; }
+    [data-theme="dark"] .ai-card-title { color: inherit; }
+    [data-theme="dark"] .exec-summary { color: white !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -426,8 +426,7 @@ def render_anomaly_table(df):
          "props":[("text-align","center"),("padding","8px"),
                   ("font-size","12px"),("border","1px solid #D5E0F0")]},
     ])
-    st.dataframe(styled, use_container_width=True, height=380, 
-                 column_config={"Partner": st.column_config.TextColumn(width="large")})
+    st.dataframe(styled, use_container_width=True, height=380)
 
 # ════════════════════════════════════════════════════════
 # SIDEBAR
@@ -493,7 +492,7 @@ with st.sidebar:
 # ════════════════════════════════════════════════════════
 
 st.markdown(f"""
-<div style='text-align:center; padding:20px 0 16px 0;'>
+<div style='text-align:center; padding:8px 0 16px 0;'>
     <span style='font-size:24px; font-weight:700; color:#1A1A2E;'>
         📊 Company Analytics — Commercial KPI Dashboard
     </span>
@@ -510,13 +509,12 @@ df, threshold, avg_cb = calculate_metrics(df_raw)
 avg_margin = df["Margin_Pct"].mean()
 
 # ── KPI CARDS ────────────────────────────────────────────
-c1, c2, c3, c4 ,c5= st.columns(5)
+c1, c2, c3, c4 = st.columns(4)
 kpi_data = [
     (c1, "Total Revenue",  f"€{df['Revenue_EUR'].sum():,.0f}",  "kpi-value-blue",   C_BLUE),
     (c2, "Total Cashback", f"€{df['Cashback_EUR'].sum():,.0f}", "kpi-value-red",    C_ANOMALY),
     (c3, "Total Margin",   f"€{df['Margin_EUR'].sum():,.0f}",   "kpi-value-green",  C_GREEN),
     (c4, "Avg Margin %",   f"{avg_margin:.1f}%",                "kpi-value-purple", C_PURPLE),
-    (c5, "Anomaly CB Threshold", f"{threshold:.1f}%",           "kpi-value-red",    C_ANOMALY),
 ]
 for col, label, value, css_class, border_color in kpi_data:
     with col:
