@@ -465,7 +465,7 @@ with st.sidebar:
 # ════════════════════════════════════════════════════════
 
 st.markdown(f"""
-<div style='text-align:center; padding:8px 0 16px 0;'>
+<div style='text-align:center; padding:20px 0 16px 0;'>
     <span style='font-size:24px; font-weight:700; color:#1A1A2E;'>
         📊 Company Analytics — Commercial KPI Dashboard
     </span>
