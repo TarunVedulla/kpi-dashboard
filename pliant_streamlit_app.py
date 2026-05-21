@@ -482,7 +482,7 @@ df, threshold, avg_cb = calculate_metrics(df_raw)
 avg_margin = df["Margin_Pct"].mean()
 
 # ── KPI CARDS ────────────────────────────────────────────
-c1, c2, c3, c4 = st.columns(4)
+c1, c2, c3, c4 ,c5= st.columns(4)
 kpi_data = [
     (c1, "Total Revenue",  f"€{df['Revenue_EUR'].sum():,.0f}",  "kpi-value-blue",   C_BLUE),
     (c2, "Total Cashback", f"€{df['Cashback_EUR'].sum():,.0f}", "kpi-value-red",    C_ANOMALY),
