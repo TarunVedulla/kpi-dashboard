@@ -488,6 +488,7 @@ kpi_data = [
     (c2, "Total Cashback", f"€{df['Cashback_EUR'].sum():,.0f}", "kpi-value-red",    C_ANOMALY),
     (c3, "Total Margin",   f"€{df['Margin_EUR'].sum():,.0f}",   "kpi-value-green",  C_GREEN),
     (c4, "Avg Margin %",   f"{avg_margin:.1f}%",                "kpi-value-purple", C_PURPLE),
+    (c5, "Anomaly CB Threshold", f"{threshold:.1f}%",           "kpi-value-red",    C_ANOMALY),
 ]
 for col, label, value, css_class, border_color in kpi_data:
     with col:
